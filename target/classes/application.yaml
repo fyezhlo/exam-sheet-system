@@ -1,0 +1,6 @@
+logger:
+  console:
+    tresholdFilter: ${logger.console.tresholdFilter}
+
+  file:
+    tresholdFilter: ${logger.file.tresholdFilter}
