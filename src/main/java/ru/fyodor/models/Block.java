@@ -6,12 +6,12 @@ import lombok.Setter;
 import java.time.Instant;
 import java.util.List;
 
-
+@RequiredArgsConstructor
 public class Block {
+    @Setter
     private byte[] currentHash;
-    private byte[] previousHash;
-
-    private byte[] signature;
-    private Instant instant;
+    private final byte[] previousHash;
+    private final byte[] signature;
+    private final Instant instant;
     private List<Transaction> transactionList;
 }
