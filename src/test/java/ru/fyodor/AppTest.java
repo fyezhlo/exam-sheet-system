@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ru.fyodor.models.GenesisBlock;
+
 /**
  * Unit test for simple App.
  */
@@ -26,5 +28,10 @@ public class AppTest
     public void logTest() throws Exception {
         Logger logger = LogManager.getLogger(App.class.getName());
         logger.error("testing ERROR message log");
+    }
+
+    @Test
+    public void genesisTest() {
+        System.out.println(GenesisBlock.getBlock(new byte[]{0}));
     }
 }

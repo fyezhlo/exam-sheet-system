@@ -9,8 +9,7 @@ public class GenesisBlock{
     private GenesisBlock(byte[] signature) {
         genesisBlock = new Block(
                 new byte[]{0},
-                signature,
-                Instant.MIN
+                signature
         );
     }
     public static Block getBlock(byte[] signature) {
