@@ -1,13 +1,13 @@
 package ru.fyodor.models;
 
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.Instant;
 import java.util.List;
 
 @ToString
+@EqualsAndHashCode
+@Getter
 public class Block {
     @Setter
     private byte[] currentHash;
