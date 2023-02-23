@@ -1,9 +1,11 @@
 package ru.fyodor.models;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
+@RequiredArgsConstructor
 public class Account {
-    private byte[] publicKey;
-    private byte[] address;
+    private final byte[] publicKey;
+    private final byte[] address;
 }

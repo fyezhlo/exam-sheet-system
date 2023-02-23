@@ -40,7 +40,7 @@ public class AppTest
       byte[] bytes = MessageDigest
               .getInstance("SHA-256")
               .digest(GenesisBlock
-                      .getBlock(new byte[]{0})
+                      .getBlock(new byte[]{0}, new byte[]{0})
                       .getInstant()
                       .toString()
                       .getBytes(StandardCharsets.UTF_8)

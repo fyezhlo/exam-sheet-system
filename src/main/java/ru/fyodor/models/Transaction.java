@@ -1,12 +1,14 @@
 package ru.fyodor.models;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
+@RequiredArgsConstructor
 public class Transaction {
-    private Token token;
-    private byte[] signature;
-    private byte[] transactionHash;
-    private byte[] prevBlockHash;
-    private byte[] randomBytes;
+    private final Token token;
+    private final byte[] signature;
+    private final byte[] transactionHash;
+    private final byte[] prevBlockHash;
+    private final byte[] randomBytes;
 }
