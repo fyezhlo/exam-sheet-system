@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ru.fyodor.models.GenesisBlock;
+import ru.fyodor.services.HashGenerator;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -56,5 +57,11 @@ public class AppTest
       for (byte b : bytes) {
           System.out.print(Integer.toHexString(b));
       }
+    }
+
+    @Test
+    public void hashTest() throws NoSuchAlgorithmException {
+        HashGenerator hashGenerator = new HashGenerator();
+
     }
 }

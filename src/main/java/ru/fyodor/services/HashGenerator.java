@@ -8,7 +8,7 @@ public class HashGenerator {
 
     private final MessageDigest messageDigest;
 
-    public HashGenerator(MessageDigest messageDigest) throws NoSuchAlgorithmException {
+    public HashGenerator() throws NoSuchAlgorithmException {
         this.messageDigest = MessageDigest.getInstance("SHA-256");
     }
 

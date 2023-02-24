@@ -22,6 +22,8 @@ public class BlockChain {
                 transaction.getSignature()
                 );
 
+        newBlock.setCurrentHash(calculateNewBlockHash());
+
         this.lastBlock = newBlock;
 //        ++this.size;
     }
@@ -30,5 +32,7 @@ public class BlockChain {
         return lastBlock.getCurrentHash();
     }
 
-
+    private byte[] calculateNewBlockHash() {
+        return null;
+    }
 }
