@@ -8,7 +8,7 @@ public class BlockChain {
 
     private final Block genesisBlock;
     private Block lastBlock;
-    private transient int size;
+    //private transient int size;
 
     public BlockChain(Block genesisBlock) {
         this.genesisBlock = genesisBlock;
@@ -23,7 +23,7 @@ public class BlockChain {
                 );
 
         this.lastBlock = newBlock;
-        ++this.size;
+//        ++this.size;
     }
 
     public byte[] getLastBlockHash() {
