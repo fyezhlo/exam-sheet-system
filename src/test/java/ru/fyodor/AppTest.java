@@ -1,11 +1,10 @@
 package ru.fyodor;
 
-import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.Test;
 import ru.fyodor.models.GenesisBlock;
 import ru.fyodor.services.HashGenerator;
 
@@ -13,16 +12,10 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-/**
- * Unit test for simple App.
- */
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class AppTest 
 {
-    /**
-     * Rigorous Test :-)
-     */
-
-
     @Test
     public void shouldAnswerWithTrue()
     {
