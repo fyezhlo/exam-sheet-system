@@ -21,7 +21,11 @@ public class Block {
         this.signature = signature;
         this.instant = Instant.now();
 
-        //current hash calculation logic
-        this.currentHash = BlockChain.calculateNewBlockHash();
+        this.currentHash = BlockChain.calculateNewBlockHash(
+                previousHash,
+                data,
+                signature,
+                instant.toString().getBytes()
+        );
     }
 }

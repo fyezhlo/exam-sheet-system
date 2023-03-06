@@ -6,9 +6,9 @@ import lombok.Setter;
 @Setter
 @Getter
 public class Node {
-    public Node left;
-    public Node right;
-    public byte[] hash;
+    private Node left;
+    private Node right;
+    private byte[] hash;
 
     public Node(Node left, Node right, byte[] hash) {
         this.left = left;

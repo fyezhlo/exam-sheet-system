@@ -19,7 +19,6 @@ public class Transaction {
         this.prevBlockHash = prevBlockHash;
         this.randomBytes = randomBytes;
 
-        //current hash calculation logic
         this.transactionHash = TransactionService.calculateNewTransHash();
     }
 }
