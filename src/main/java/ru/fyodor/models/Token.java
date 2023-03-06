@@ -1,9 +1,11 @@
 package ru.fyodor.models;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
+@RequiredArgsConstructor
 public class Token {
-    private byte[] dataHash;
-    private Collection collection;
+    private final byte[] dataHash;
+    private final Collection collection;
 }
