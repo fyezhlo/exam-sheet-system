@@ -12,7 +12,7 @@ public class HashGenerator {
         this.messageDigest = MessageDigest.getInstance("SHA-256");
     }
 
-    public byte[] generateHash(String input) {
-        return messageDigest.digest(input.getBytes(StandardCharsets.UTF_8));
+    public byte[] generateHash(byte[] input) {
+        return messageDigest.digest(input);
     }
 }

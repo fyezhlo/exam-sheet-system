@@ -25,7 +25,6 @@ public class TransactionService {
                 signature,
                 blockChain.getLastBlockHash(),
                 randomBytes
-
         );
 
         byte[] transactionHash = hashGenerator.generateHash(getInput(transaction));
@@ -38,7 +37,7 @@ public class TransactionService {
         return null;
     }
 
-    private String getInput(Transaction transaction) {
-        return "";
+    private byte[] getInput(Transaction transaction) {
+        return null;
     }
 }
