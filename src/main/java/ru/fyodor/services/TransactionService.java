@@ -5,6 +5,7 @@ import ru.fyodor.models.Token;
 import ru.fyodor.models.Transaction;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 public class TransactionService {
@@ -19,12 +20,11 @@ public class TransactionService {
     public Transaction getTransaction(Token token,
                                       byte[] signature) {
 
-        byte[] randomBytes = getRandomBytes();
         Transaction transaction = new Transaction(
                 token,
                 signature,
                 blockChain.getLastBlockHash(),
-                randomBytes
+                getRandomBytes()
         );
 
         byte[] transactionHash = hashGenerator.generateHash(getInput(transaction));
@@ -34,7 +34,13 @@ public class TransactionService {
     }
 
     private byte[] getRandomBytes() {
-        return null;
+        byte[] randomBytes = new byte[64];
+
+        ThreadLocalRandom
+                .current()
+                .nextBytes(randomBytes);
+
+        return randomBytes;
     }
 
     private byte[] getInput(Transaction transaction) {

@@ -12,6 +12,7 @@ import ru.fyodor.services.HashGenerator;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -52,6 +53,19 @@ public class AppTest
 
         byte[] result2 = hashGenerator.generateHash(new byte[]{0,1,0});
         System.out.println(Hexadecimals.toHexString(result2));
+    }
+
+    @Test
+    public void getRandomBytesTest() throws NoSuchAlgorithmException {
+        byte[] randomBytes = new byte[32];
+        ThreadLocalRandom
+                .current()
+                .nextBytes(randomBytes);
+
+        System.out.println(Hexadecimals.toHexString(randomBytes));
+
+        HashGenerator hashGenerator = new HashGenerator();
+        System.out.println(Hexadecimals.toHexString(hashGenerator.generateHash(randomBytes)));
     }
 
 }
