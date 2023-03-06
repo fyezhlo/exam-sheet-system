@@ -1,6 +1,7 @@
 package ru.fyodor.models;
 
 import lombok.*;
+import ru.fyodor.services.BlockChain;
 
 import java.time.Instant;
 
@@ -8,7 +9,6 @@ import java.time.Instant;
 @EqualsAndHashCode
 @Getter
 public class Block {
-    @Setter
     private byte[] currentHash;
     private final byte[] previousHash;
     private final byte[] data;
@@ -20,5 +20,8 @@ public class Block {
         this.data = data;
         this.signature = signature;
         this.instant = Instant.now();
+
+        //current hash calculation logic
+        this.currentHash = BlockChain.calculateNewBlockHash();
     }
 }
