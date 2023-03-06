@@ -27,9 +27,6 @@ public class TransactionService {
                 getRandomBytes()
         );
 
-        byte[] transactionHash = hashGenerator.generateHash(getInput(transaction));
-        transaction.setTransactionHash(transactionHash);
-
         return transaction;
     }
 
@@ -44,6 +41,10 @@ public class TransactionService {
     }
 
     private byte[] getInput(Transaction transaction) {
+        return null;
+    }
+
+    public static byte[] calculateNewTransHash() {
         return null;
     }
 }
