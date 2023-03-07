@@ -1,12 +1,12 @@
 package ru.fyodor.models;
 
 import lombok.*;
-import ru.fyodor.services.BlockChain;
 import ru.fyodor.services.HashGenerator;
 
 import java.time.Instant;
+import java.util.Arrays;
+import org.assertj.core.util.Hexadecimals;
 
-@ToString
 @EqualsAndHashCode
 @Getter
 public class Block {
@@ -28,5 +28,16 @@ public class Block {
                 signature,
                 instant.toString().getBytes()
         );
+    }
+
+    @Override
+    public String toString() {
+        return "Block{\n" +
+                "currentHash=" + Hexadecimals.toHexString(currentHash) +
+                ", \npreviousHash=" + Hexadecimals.toHexString(previousHash) +
+                ", \ndata=" + Hexadecimals.toHexString(data) +
+                ", \nsignature=" + Hexadecimals.toHexString(signature) +
+                ", \ninstant=" + instant +
+                "}\n";
     }
 }

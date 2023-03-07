@@ -1,46 +1,23 @@
 package ru.fyodor.services;
 
-import lombok.RequiredArgsConstructor;
 import ru.fyodor.models.Token;
 import ru.fyodor.models.Transaction;
-
-import java.security.NoSuchAlgorithmException;
-import java.util.concurrent.ThreadLocalRandom;
 
 
 public class TransactionService {
     private final BlockChain blockChain;
-    private final HashGenerator hashGenerator;
 
-    public TransactionService(BlockChain blockChain) throws NoSuchAlgorithmException {
+    public TransactionService(BlockChain blockChain) {
         this.blockChain = blockChain;
-        this.hashGenerator = new HashGenerator();
     }
 
-    public Transaction getTransaction(Token token,
-                                      byte[] signature) {
-
+    public void generateTransaction(Token token, byte[] signature) {
         Transaction transaction = new Transaction(
                 token,
                 signature,
-                blockChain.getLastBlockHash(),
-                getRandomBytes()
+                this.blockChain.getLastBlockHash(),
+                HashGenerator.getRandomBytes()
         );
-
-        return transaction;
-    }
-
-    private byte[] getRandomBytes() {
-        byte[] randomBytes = new byte[32];
-
-        ThreadLocalRandom
-                .current()
-                .nextBytes(randomBytes);
-
-        return randomBytes;
-    }
-
-    private byte[] getInput(Transaction transaction) {
-        return null;
+        blockChain.addBlock(transaction);
     }
 }

@@ -1,14 +1,9 @@
 package ru.fyodor.services;
 
-import lombok.RequiredArgsConstructor;
 import ru.fyodor.models.Block;
-import ru.fyodor.models.Collection;
 import ru.fyodor.models.Transaction;
-import ru.fyodor.services.MerkleTree.MerkleTree;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class BlockChain {
@@ -16,12 +11,25 @@ public class BlockChain {
     private final Block genesisBlock;
     private Block lastBlock;
 
-    public BlockChain(Block genesisBlock) {
+    private List<Block> chain = new ArrayList<>();
+
+    private BlockChain(Block genesisBlock) {
         this.genesisBlock = genesisBlock;
         this.lastBlock = genesisBlock;
+        chain.add(genesisBlock);
     }
 
-    public void addBlock(Transaction transaction) {
+    public static BlockChain generateBlockChain() {
+        Block genesisBlock = GenesisBlock.getBlock(
+                //temporary decision
+                HashGenerator.getRandomBytes(),
+                HashGenerator.getRandomBytes()
+        );
+
+        return new BlockChain(genesisBlock);
+    }
+
+    void addBlock(Transaction transaction) {
         Block newBlock = new Block(
                 transaction.getPrevBlockHash(),
                 transaction.getTransactionHash(),
@@ -29,9 +37,14 @@ public class BlockChain {
                 );
 
         this.lastBlock = newBlock;
+        chain.add(newBlock);
     }
 
-    public byte[] getLastBlockHash() {
+    byte[] getLastBlockHash() {
         return lastBlock.getCurrentHash();
+    }
+
+    public List<Block> getChain() {
+        return this.chain;
     }
 }
