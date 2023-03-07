@@ -5,6 +5,7 @@ import ru.fyodor.services.HashGenerator;
 
 import java.time.Instant;
 import java.util.Arrays;
+import org.assertj.core.util.Hexadecimals;
 
 @EqualsAndHashCode
 @Getter
@@ -31,12 +32,12 @@ public class Block {
 
     @Override
     public String toString() {
-        return "Block{" +
-                "currentHash=" + Arrays.toString(currentHash) +
-                ", \npreviousHash=" + Arrays.toString(previousHash) +
-                ", \ndata=" + Arrays.toString(data) +
-                ", \nsignature=" + Arrays.toString(signature) +
+        return "Block{\n" +
+                "currentHash=" + Hexadecimals.toHexString(currentHash) +
+                ", \npreviousHash=" + Hexadecimals.toHexString(previousHash) +
+                ", \ndata=" + Hexadecimals.toHexString(data) +
+                ", \nsignature=" + Hexadecimals.toHexString(signature) +
                 ", \ninstant=" + instant +
-                '}';
+                "}\n";
     }
 }
