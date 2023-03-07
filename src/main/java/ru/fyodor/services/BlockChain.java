@@ -16,9 +16,12 @@ public class BlockChain {
     private final Block genesisBlock;
     private Block lastBlock;
 
+    private List<Block> chain = new ArrayList<>();
+
     public BlockChain(Block genesisBlock) {
         this.genesisBlock = genesisBlock;
         this.lastBlock = genesisBlock;
+        chain.add(genesisBlock);
     }
 
     public void addBlock(Transaction transaction) {
@@ -29,6 +32,7 @@ public class BlockChain {
                 );
 
         this.lastBlock = newBlock;
+        chain.add(newBlock);
     }
 
     public byte[] getLastBlockHash() {
