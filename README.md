@@ -10,9 +10,4 @@ Technologies stack:
 
 How it works:
 
-
-![Untitled Diagram drawio(2)](https://user-images.githubusercontent.com/99747059/220954178-77cec3f3-72cc-4734-ac93-9a20991f88ca.png)
-
-
-
-
+![Untitled Diagram drawio(4)](https://user-images.githubusercontent.com/99747059/223498772-cf1a6b1e-5f90-444e-8cd7-2ca2ea23412b.png)
