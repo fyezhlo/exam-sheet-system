@@ -1,12 +1,11 @@
 package ru.fyodor.models;
 
 import lombok.*;
-import ru.fyodor.services.BlockChain;
 import ru.fyodor.services.HashGenerator;
 
 import java.time.Instant;
+import java.util.Arrays;
 
-@ToString
 @EqualsAndHashCode
 @Getter
 public class Block {
@@ -28,5 +27,16 @@ public class Block {
                 signature,
                 instant.toString().getBytes()
         );
+    }
+
+    @Override
+    public String toString() {
+        return "Block{" +
+                "currentHash=" + Arrays.toString(currentHash) +
+                ", \npreviousHash=" + Arrays.toString(previousHash) +
+                ", \ndata=" + Arrays.toString(data) +
+                ", \nsignature=" + Arrays.toString(signature) +
+                ", \ninstant=" + instant +
+                '}';
     }
 }

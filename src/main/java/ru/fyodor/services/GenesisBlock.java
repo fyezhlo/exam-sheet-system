@@ -1,6 +1,8 @@
-package ru.fyodor.models;
+package ru.fyodor.services;
 
-public class GenesisBlock{
+import ru.fyodor.models.Block;
+
+ class GenesisBlock{
 
     private static Block genesisBlock = null;
 

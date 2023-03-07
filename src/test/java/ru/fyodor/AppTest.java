@@ -6,18 +6,23 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.assertj.core.util.Hexadecimals;
 import org.junit.jupiter.api.Test;
-import ru.fyodor.models.GenesisBlock;
+import ru.fyodor.models.Account;
+import ru.fyodor.models.Block;
+import ru.fyodor.models.Collection;
+import ru.fyodor.models.Token;
+import ru.fyodor.services.BlockChain;
 import ru.fyodor.services.HashGenerator;
 import ru.fyodor.services.MerkleTree.MerkleTree;
+import ru.fyodor.services.TransactionService;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static ru.fyodor.services.HashGenerator.getRandomBytes;
+
 
 public class AppTest 
 {
@@ -31,20 +36,6 @@ public class AppTest
     public void logTest() throws Exception {
         Logger logger = LogManager.getLogger(App.class.getName());
         logger.error("testing ERROR message log");
-    }
-
-    @Test
-    public void genesisTest() throws NoSuchAlgorithmException {
-
-      byte[] bytes = MessageDigest
-              .getInstance("SHA-256")
-              .digest(GenesisBlock
-                      .getBlock(new byte[]{0}, new byte[]{0})
-                      .getInstant()
-                      .toString()
-                      .getBytes(StandardCharsets.UTF_8)
-              );
-
     }
 
     @Test
@@ -80,5 +71,27 @@ public class AppTest
        );
 
         System.out.println(Hexadecimals.toHexString(MerkleTree.generateTree(list).getHash()));
+    }
+
+    @Test
+    public void transactionTest() {
+        BlockChain blockChain = BlockChain.generateBlockChain();
+        TransactionService transactionService = new TransactionService(blockChain);
+
+        Token token = new Token(
+                getRandomBytes(),
+                new Collection(
+                        new Account(
+                                getRandomBytes(),
+                                getRandomBytes()
+                        ),
+                        getRandomBytes()
+                )
+        );
+        transactionService.generateTransaction(token, getRandomBytes());
+
+        for (Block block : blockChain.getChain()) {
+            System.out.println(block);
+        }
     }
 }

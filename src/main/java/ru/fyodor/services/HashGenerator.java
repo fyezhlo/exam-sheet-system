@@ -8,6 +8,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class HashGenerator {
 
@@ -32,5 +33,15 @@ public class HashGenerator {
         }
 
         return MerkleTree.generateTree(dataList).getHash();
+    }
+
+    public static byte[] getRandomBytes() {
+        byte[] randomBytes = new byte[32];
+
+        ThreadLocalRandom
+                .current()
+                .nextBytes(randomBytes);
+
+        return randomBytes;
     }
 }
