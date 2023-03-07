@@ -1,9 +1,13 @@
 package ru.fyodor.services;
 
+import ru.fyodor.services.MerkleTree.MerkleTree;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class HashGenerator {
 
@@ -21,14 +25,12 @@ public class HashGenerator {
         return messageDigest.digest(input);
     }
 
-    public byte[] calculateHashFromArgs(byte[]... args) {
-        byte[] result = new byte[] {0};
-
-        for (byte[] arrOfBytes : args) {
-            byte[] temp = new byte[result.length + arrOfBytes.length];
-
+    public static byte[] calculateHashFromArgs(byte[]... args) {
+        List<byte[]> dataList = new ArrayList<>();
+        for (byte[] data : args) {
+            dataList.add(data);
         }
 
-        return result;
+        return MerkleTree.generateTree(dataList).getHash();
     }
 }

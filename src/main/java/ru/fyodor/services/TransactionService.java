@@ -31,7 +31,7 @@ public class TransactionService {
     }
 
     private byte[] getRandomBytes() {
-        byte[] randomBytes = new byte[64];
+        byte[] randomBytes = new byte[32];
 
         ThreadLocalRandom
                 .current()
@@ -41,10 +41,6 @@ public class TransactionService {
     }
 
     private byte[] getInput(Transaction transaction) {
-        return null;
-    }
-
-    public static byte[] calculateNewTransHash() {
         return null;
     }
 }

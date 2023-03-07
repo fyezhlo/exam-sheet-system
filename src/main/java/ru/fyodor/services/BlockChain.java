@@ -34,13 +34,4 @@ public class BlockChain {
     public byte[] getLastBlockHash() {
         return lastBlock.getCurrentHash();
     }
-
-    public static byte[] calculateNewBlockHash(byte[]... args) {
-        List<byte[]> dataList = new ArrayList<>();
-        for (byte[] data : args) {
-            dataList.add(data);
-        }
-
-        return MerkleTree.generateTree(dataList).getHash();
-    }
 }

@@ -2,6 +2,7 @@ package ru.fyodor.models;
 
 import lombok.*;
 import ru.fyodor.services.BlockChain;
+import ru.fyodor.services.HashGenerator;
 
 import java.time.Instant;
 
@@ -21,7 +22,7 @@ public class Block {
         this.signature = signature;
         this.instant = Instant.now();
 
-        this.currentHash = BlockChain.calculateNewBlockHash(
+        this.currentHash = HashGenerator.calculateHashFromArgs(
                 previousHash,
                 data,
                 signature,

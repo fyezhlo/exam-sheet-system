@@ -1,8 +1,7 @@
 package ru.fyodor.models;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import ru.fyodor.services.HashGenerator;
 import ru.fyodor.services.TransactionService;
 
 @Getter
@@ -19,6 +18,11 @@ public class Transaction {
         this.prevBlockHash = prevBlockHash;
         this.randomBytes = randomBytes;
 
-        this.transactionHash = TransactionService.calculateNewTransHash();
+        this.transactionHash = HashGenerator.calculateHashFromArgs(
+                token.getDataHash(),
+                signature,
+                prevBlockHash,
+                randomBytes
+        );
     }
 }
