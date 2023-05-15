@@ -10,6 +10,7 @@ import ru.fyodor.models.Account;
 import ru.fyodor.models.Block;
 import ru.fyodor.models.Collection;
 import ru.fyodor.models.Token;
+import ru.fyodor.services.AccountService;
 import ru.fyodor.services.BlockChain;
 import ru.fyodor.services.HashGenerator;
 import ru.fyodor.services.MerkleTree.MerkleTree;
@@ -81,7 +82,7 @@ public class AppTest
         Token token = new Token(
                 getRandomBytes(),
                 new Collection(
-                        new Account(
+                        new AccountService(
                                 getRandomBytes(),
                                 getRandomBytes()
                         ),
