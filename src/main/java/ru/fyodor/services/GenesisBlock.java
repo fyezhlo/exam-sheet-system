@@ -6,16 +6,16 @@ import ru.fyodor.models.Block;
 
     private static Block genesisBlock = null;
 
-    private GenesisBlock(byte[] signature, byte[] data) {
+    private GenesisBlock(byte[] data) {
         genesisBlock = new Block(
                 new byte[]{0},
                 data,
-                signature
+                new byte[]{0}
         );
     }
-    public static Block getBlock(byte[] signature, byte[] data) {
+    public static Block getBlock(byte[] data) {
         if (genesisBlock == null) {
-            new GenesisBlock(signature, data);
+            new GenesisBlock(data);
         }
         return genesisBlock;
     }

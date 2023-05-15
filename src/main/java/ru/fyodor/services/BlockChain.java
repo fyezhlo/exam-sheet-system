@@ -21,8 +21,6 @@ public class BlockChain {
 
     public static BlockChain generateBlockChain() {
         Block genesisBlock = GenesisBlock.getBlock(
-                //temporary decision
-                HashGenerator.getRandomBytes(),
                 HashGenerator.getRandomBytes()
         );
 

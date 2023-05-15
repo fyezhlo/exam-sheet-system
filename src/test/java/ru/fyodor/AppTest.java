@@ -76,7 +76,7 @@ public class AppTest
     @Test
     public void transactionTest() {
         BlockChain blockChain = BlockChain.generateBlockChain();
-        TransactionService transactionService = new TransactionService(blockChain);
+        TransactionService ts = new TransactionService(blockChain);
 
         Token token = new Token(
                 getRandomBytes(),
@@ -88,8 +88,14 @@ public class AppTest
                         getRandomBytes()
                 )
         );
-        transactionService.generateTransaction(token, getRandomBytes());
+                                    // заменить на ссылку на аккаунт, к-й подп. тр-ю
+                                    // в тс будет осуществляться операция подписания
+                                    // |
+                                    // V
+        ts.generateTransaction(token, getRandomBytes());
+        ts.generateTransaction(token, getRandomBytes());
 
+        System.out.print("Genesis block: ");
         for (Block block : blockChain.getChain()) {
             System.out.println(block);
         }
