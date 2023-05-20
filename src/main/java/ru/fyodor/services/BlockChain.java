@@ -1,5 +1,6 @@
 package ru.fyodor.services;
 
+import ru.fyodor.client.Account;
 import ru.fyodor.models.Block;
 import ru.fyodor.models.Transaction;
 
@@ -19,9 +20,11 @@ public class BlockChain {
         chain.add(genesisBlock);
     }
 
-    public static BlockChain generateBlockChain() {
+    public static BlockChain generateBlockChain(Account account) {
         Block genesisBlock = GenesisBlock.getBlock(
-                HashGenerator.getRandomBytes()
+                // можно заменить на чтение из конфиг файла
+                HashGenerator.getRandomBytes(),
+                account
         );
 
         return new BlockChain(genesisBlock);
@@ -31,7 +34,7 @@ public class BlockChain {
         Block newBlock = new Block(
                 transaction.getPrevBlockHash(),
                 transaction.getTransactionHash(),
-                transaction.getSignature()
+                transaction.getAccount()
                 );
 
         this.lastBlock = newBlock;

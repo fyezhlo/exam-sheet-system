@@ -2,6 +2,7 @@ package ru.fyodor.models;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import ru.fyodor.client.Account;
 
 import java.util.List;
 
