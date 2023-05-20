@@ -1,8 +1,7 @@
-package ru.fyodor.services;
+package ru.fyodor.generators;
 
-import ru.fyodor.services.MerkleTree.MerkleTree;
+import ru.fyodor.generators.MerkleTree.MerkleTree;
 
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;

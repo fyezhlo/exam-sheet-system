@@ -6,13 +6,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.assertj.core.util.Hexadecimals;
 import org.junit.jupiter.api.Test;
+import ru.fyodor.client.Account;
 import ru.fyodor.models.Block;
 import ru.fyodor.models.Collection;
 import ru.fyodor.models.Token;
 import ru.fyodor.client.AccountService;
 import ru.fyodor.services.BlockChain;
-import ru.fyodor.services.HashGenerator;
-import ru.fyodor.services.MerkleTree.MerkleTree;
+import ru.fyodor.generators.HashGenerator;
+import ru.fyodor.generators.MerkleTree.MerkleTree;
 import ru.fyodor.services.TransactionService;
 
 import java.security.NoSuchAlgorithmException;
@@ -21,7 +22,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static ru.fyodor.services.HashGenerator.getRandomBytes;
+import static ru.fyodor.generators.HashGenerator.getRandomBytes;
 
 
 public class AppTest 
@@ -75,15 +76,16 @@ public class AppTest
 
     @Test
     public void transactionTest() {
-        BlockChain blockChain = BlockChain.generateBlockChain();
+        Account account = new AccountService();
+        account.createAccount(getRandomBytes());
+
+        BlockChain blockChain = BlockChain.generateBlockChain(account);
         TransactionService ts = new TransactionService(blockChain);
 
         Token token = new Token(
                 getRandomBytes(),
                 new Collection(
-                        new AccountService(
-                                getRandomBytes()
-                        ),
+                        account,
                         getRandomBytes()
                 )
         );
@@ -93,8 +95,8 @@ public class AppTest
                                     // в тс будет осуществляться операция подписания
                                     // |
                                     // V
-        ts.generateTransaction(token, getRandomBytes());
-        ts.generateTransaction(token, getRandomBytes());
+        ts.generateTransaction(token, account);
+        ts.generateTransaction(token, account);
 
         System.out.print("Genesis block: ");
         for (Block block : blockChain.getChain()) {

@@ -1,4 +1,4 @@
-package ru.fyodor.services.MerkleTree;
+package ru.fyodor.generators.MerkleTree;
 
 import lombok.Getter;
 import lombok.Setter;

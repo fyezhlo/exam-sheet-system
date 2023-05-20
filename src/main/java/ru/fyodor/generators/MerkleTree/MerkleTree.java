@@ -1,8 +1,6 @@
-package ru.fyodor.services.MerkleTree;
+package ru.fyodor.generators.MerkleTree;
 
-import lombok.Getter;
-import lombok.Setter;
-import ru.fyodor.services.HashGenerator;
+import ru.fyodor.generators.HashGenerator;
 
 import java.util.ArrayList;
 import java.util.List;

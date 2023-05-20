@@ -7,7 +7,7 @@ import ru.fyodor.models.Block;
 
     private static Block genesisBlock = null;
 
-    private GenesisBlock(byte[] data, Account account) {
+    private GenesisBlock(byte[] data, Account account) throws Exception {
         genesisBlock = new Block(
                 new byte[]{0},
                 data,

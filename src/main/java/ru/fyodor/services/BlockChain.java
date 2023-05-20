@@ -1,6 +1,7 @@
 package ru.fyodor.services;
 
 import ru.fyodor.client.Account;
+import ru.fyodor.generators.HashGenerator;
 import ru.fyodor.models.Block;
 import ru.fyodor.models.Transaction;
 
@@ -30,7 +31,7 @@ public class BlockChain {
         return new BlockChain(genesisBlock);
     }
 
-    void addBlock(Transaction transaction) {
+    void addBlock(Transaction transaction) throws Exception {
         Block newBlock = new Block(
                 transaction.getPrevBlockHash(),
                 transaction.getTransactionHash(),
