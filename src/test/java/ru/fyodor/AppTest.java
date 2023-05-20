@@ -6,10 +6,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.assertj.core.util.Hexadecimals;
 import org.junit.jupiter.api.Test;
-import ru.fyodor.models.Account;
 import ru.fyodor.models.Block;
 import ru.fyodor.models.Collection;
 import ru.fyodor.models.Token;
+import ru.fyodor.client.AccountService;
 import ru.fyodor.services.BlockChain;
 import ru.fyodor.services.HashGenerator;
 import ru.fyodor.services.MerkleTree.MerkleTree;
@@ -81,13 +81,14 @@ public class AppTest
         Token token = new Token(
                 getRandomBytes(),
                 new Collection(
-                        new Account(
-                                getRandomBytes(),
+                        new AccountService(
                                 getRandomBytes()
                         ),
                         getRandomBytes()
                 )
         );
+
+
                                     // заменить на ссылку на аккаунт, к-й подп. тр-ю
                                     // в тс будет осуществляться операция подписания
                                     // |
