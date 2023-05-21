@@ -7,10 +7,11 @@ import org.apache.logging.log4j.Logger;
 import org.assertj.core.util.Hexadecimals;
 import org.junit.jupiter.api.Test;
 import ru.fyodor.client.Account;
+import ru.fyodor.client.AccountService;
 import ru.fyodor.models.Block;
 import ru.fyodor.models.Collection;
 import ru.fyodor.models.Token;
-import ru.fyodor.client.AccountService;
+import ru.fyodor.client.AccountServiceImpl;
 import ru.fyodor.services.BlockChain;
 import ru.fyodor.generators.HashGenerator;
 import ru.fyodor.generators.MerkleTree.MerkleTree;
@@ -75,17 +76,17 @@ public class AppTest
     }
 
     @Test
-    public void transactionTest() {
-        Account account = new AccountService();
-        account.createAccount(getRandomBytes());
+    public void transactionTest() throws Exception {
+        AccountService as = new AccountServiceImpl();
+        Account account = as.createAccount("seed".getBytes());
 
-        BlockChain blockChain = BlockChain.generateBlockChain(account);
+        BlockChain blockChain = BlockChain.generateBlockChain(as);
         TransactionService ts = new TransactionService(blockChain);
 
         Token token = new Token(
                 getRandomBytes(),
                 new Collection(
-                        account,
+                        as,
                         getRandomBytes()
                 )
         );
@@ -95,8 +96,8 @@ public class AppTest
                                     // в тс будет осуществляться операция подписания
                                     // |
                                     // V
-        ts.generateTransaction(token, account);
-        ts.generateTransaction(token, account);
+        ts.generateTransaction(token, as);
+        ts.generateTransaction(token, as);
 
         System.out.print("Genesis block: ");
         for (Block block : blockChain.getChain()) {

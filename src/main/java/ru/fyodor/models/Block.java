@@ -2,6 +2,7 @@ package ru.fyodor.models;
 
 import lombok.*;
 import ru.fyodor.client.Account;
+import ru.fyodor.client.AccountService;
 import ru.fyodor.generators.HashGenerator;
 
 import java.time.Instant;
