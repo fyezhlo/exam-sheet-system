@@ -80,7 +80,7 @@ public class AppTest
         AccountService as = new AccountServiceImpl();
         Account account = as.createAccount("seed".getBytes());
 
-        BlockChain blockChain = BlockChain.generateBlockChain(as);
+        BlockChain blockChain = BlockChain.generateBlockChain(account);
         TransactionService ts = new TransactionService(blockChain);
 
         Token token = new Token(
@@ -96,8 +96,8 @@ public class AppTest
                                     // в тс будет осуществляться операция подписания
                                     // |
                                     // V
-        ts.generateTransaction(token, as);
-        ts.generateTransaction(token, as);
+        ts.generateTransaction(token, account);
+        ts.generateTransaction(token, account);
 
         System.out.print("Genesis block: ");
         for (Block block : blockChain.getChain()) {

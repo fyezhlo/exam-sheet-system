@@ -1,5 +1,6 @@
 package ru.fyodor.services;
 
+import ru.fyodor.client.Account;
 import ru.fyodor.client.AccountService;
 import ru.fyodor.models.Block;
 
@@ -7,16 +8,16 @@ import ru.fyodor.models.Block;
 
     private static Block genesisBlock = null;
 
-    private GenesisBlock(byte[] data, AccountService accountService) throws Exception {
+    private GenesisBlock(byte[] data, Account account) throws Exception {
         genesisBlock = new Block(
                 new byte[]{0},
                 data,
-                accountService
+                account
         );
     }
-    public static Block getBlock(byte[] data, AccountService accountService) throws Exception {
+    public static Block getBlock(byte[] data, Account account) throws Exception {
         if (genesisBlock == null) {
-            new GenesisBlock(data, accountService);
+            new GenesisBlock(data, account);
         }
         return genesisBlock;
     }

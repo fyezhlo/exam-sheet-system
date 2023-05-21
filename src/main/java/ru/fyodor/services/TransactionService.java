@@ -1,5 +1,6 @@
 package ru.fyodor.services;
 
+import ru.fyodor.client.Account;
 import ru.fyodor.client.AccountService;
 import ru.fyodor.generators.HashGenerator;
 import ru.fyodor.models.Token;
@@ -13,10 +14,10 @@ public class TransactionService {
         this.blockChain = blockChain;
     }
 
-    public void generateTransaction(Token token, AccountService accountService) throws Exception {
+    public void generateTransaction(Token token, Account account) throws Exception {
         Transaction transaction = new Transaction(
                 token,
-                accountService,
+                account,
                 this.blockChain.getLastBlockHash(),
                 HashGenerator.getRandomBytes()
         );
