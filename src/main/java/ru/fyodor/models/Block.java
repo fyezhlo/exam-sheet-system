@@ -1,13 +1,12 @@
 package ru.fyodor.models;
 
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import org.assertj.core.util.Hexadecimals;
 import ru.fyodor.client.Account;
-import ru.fyodor.client.AccountService;
 import ru.fyodor.generators.HashGenerator;
 
 import java.time.Instant;
-
-import org.assertj.core.util.Hexadecimals;
 
 @EqualsAndHashCode
 @Getter

@@ -1,23 +1,21 @@
 package ru.fyodor;
 
 
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.assertj.core.util.Hexadecimals;
 import org.junit.jupiter.api.Test;
 import ru.fyodor.client.Account;
 import ru.fyodor.client.AccountService;
+import ru.fyodor.client.AccountServiceImpl;
+import ru.fyodor.generators.HashGenerator;
+import ru.fyodor.generators.MerkleTree.MerkleTree;
 import ru.fyodor.models.Block;
 import ru.fyodor.models.Collection;
 import ru.fyodor.models.Token;
-import ru.fyodor.client.AccountServiceImpl;
 import ru.fyodor.services.BlockChain;
-import ru.fyodor.generators.HashGenerator;
-import ru.fyodor.generators.MerkleTree.MerkleTree;
 import ru.fyodor.services.TransactionService;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -86,7 +84,7 @@ public class AppTest
         Token token = new Token(
                 getRandomBytes(),
                 new Collection(
-                        as,
+                        account,
                         getRandomBytes()
                 )
         );
