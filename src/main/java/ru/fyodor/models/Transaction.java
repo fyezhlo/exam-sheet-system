@@ -2,8 +2,7 @@ package ru.fyodor.models;
 
 import lombok.Getter;
 import ru.fyodor.client.Account;
-import ru.fyodor.services.HashGenerator;
-import ru.fyodor.services.TransactionService;
+import ru.fyodor.generators.HashGenerator;
 
 @Getter
 public class Transaction {

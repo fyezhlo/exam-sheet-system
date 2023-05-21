@@ -1,12 +1,12 @@
 package ru.fyodor.models;
 
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import org.assertj.core.util.Hexadecimals;
 import ru.fyodor.client.Account;
-import ru.fyodor.services.HashGenerator;
+import ru.fyodor.generators.HashGenerator;
 
 import java.time.Instant;
-import java.util.Arrays;
-import org.assertj.core.util.Hexadecimals;
 
 @EqualsAndHashCode
 @Getter
@@ -17,7 +17,7 @@ public class Block {
     private final byte[] signature; //applies on curr hash value
     private final Instant instant;
 
-    public Block(byte[] previousHash, byte[] data, Account account) {
+    public Block(byte[] previousHash, byte[] data, Account account) throws Exception {
         this.previousHash = previousHash;
         this.data = data;
         this.instant = Instant.now();

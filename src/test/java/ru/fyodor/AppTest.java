@@ -1,27 +1,27 @@
 package ru.fyodor;
 
 
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.assertj.core.util.Hexadecimals;
 import org.junit.jupiter.api.Test;
+import ru.fyodor.client.Account;
+import ru.fyodor.client.AccountService;
+import ru.fyodor.client.AccountServiceImpl;
+import ru.fyodor.generators.HashGenerator;
+import ru.fyodor.generators.MerkleTree.MerkleTree;
 import ru.fyodor.models.Block;
 import ru.fyodor.models.Collection;
 import ru.fyodor.models.Token;
-import ru.fyodor.client.AccountService;
 import ru.fyodor.services.BlockChain;
-import ru.fyodor.services.HashGenerator;
-import ru.fyodor.services.MerkleTree.MerkleTree;
 import ru.fyodor.services.TransactionService;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static ru.fyodor.services.HashGenerator.getRandomBytes;
+import static ru.fyodor.generators.HashGenerator.getRandomBytes;
 
 
 public class AppTest 
@@ -33,13 +33,13 @@ public class AppTest
     }
 
     @Test
-    public void logTest() throws Exception {
+    public void logTest() {
         Logger logger = LogManager.getLogger(App.class.getName());
         logger.error("testing ERROR message log");
     }
 
     @Test
-    public void hashTest() throws NoSuchAlgorithmException {
+    public void hashTest() {
         HashGenerator hashGenerator = new HashGenerator();
 
         byte[] result1 = hashGenerator.generateHash(new byte[]{0,1});
@@ -50,7 +50,7 @@ public class AppTest
     }
 
     @Test
-    public void getRandomBytesTest() throws NoSuchAlgorithmException {
+    public void getRandomBytesTest() {
         byte[] randomBytes = new byte[32];
         ThreadLocalRandom
                 .current()
@@ -74,27 +74,23 @@ public class AppTest
     }
 
     @Test
-    public void transactionTest() {
-        BlockChain blockChain = BlockChain.generateBlockChain();
+    public void transactionTest() throws Exception {
+        AccountService as = new AccountServiceImpl();
+        Account account = as.createAccount("seed".getBytes());
+
+        BlockChain blockChain = BlockChain.generateBlockChain(account);
         TransactionService ts = new TransactionService(blockChain);
 
         Token token = new Token(
                 getRandomBytes(),
                 new Collection(
-                        new AccountService(
-                                getRandomBytes()
-                        ),
+                        account,
                         getRandomBytes()
                 )
         );
 
-
-                                    // заменить на ссылку на аккаунт, к-й подп. тр-ю
-                                    // в тс будет осуществляться операция подписания
-                                    // |
-                                    // V
-        ts.generateTransaction(token, getRandomBytes());
-        ts.generateTransaction(token, getRandomBytes());
+        ts.generateTransaction(token, account);
+        ts.generateTransaction(token, account);
 
         System.out.print("Genesis block: ");
         for (Block block : blockChain.getChain()) {
