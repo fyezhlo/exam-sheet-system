@@ -2,7 +2,6 @@ package ru.fyodor.models;
 
 import lombok.Getter;
 import ru.fyodor.client.Account;
-import ru.fyodor.client.AccountService;
 import ru.fyodor.generators.HashGenerator;
 
 @Getter

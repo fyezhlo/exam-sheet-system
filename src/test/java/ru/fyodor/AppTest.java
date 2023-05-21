@@ -35,13 +35,13 @@ public class AppTest
     }
 
     @Test
-    public void logTest() throws Exception {
+    public void logTest() {
         Logger logger = LogManager.getLogger(App.class.getName());
         logger.error("testing ERROR message log");
     }
 
     @Test
-    public void hashTest() throws NoSuchAlgorithmException {
+    public void hashTest() {
         HashGenerator hashGenerator = new HashGenerator();
 
         byte[] result1 = hashGenerator.generateHash(new byte[]{0,1});
@@ -52,7 +52,7 @@ public class AppTest
     }
 
     @Test
-    public void getRandomBytesTest() throws NoSuchAlgorithmException {
+    public void getRandomBytesTest() {
         byte[] randomBytes = new byte[32];
         ThreadLocalRandom
                 .current()
@@ -91,11 +91,6 @@ public class AppTest
                 )
         );
 
-
-                                    // заменить на ссылку на аккаунт, к-й подп. тр-ю
-                                    // в тс будет осуществляться операция подписания
-                                    // |
-                                    // V
         ts.generateTransaction(token, account);
         ts.generateTransaction(token, account);
 
