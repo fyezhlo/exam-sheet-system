@@ -15,4 +15,12 @@ public class Node {
     public boolean addPeer(Peer peer) {
         return peers.add(peer);
     }
+
+    public boolean removePeer(Peer peer) {
+        return peers.remove(peer);
+    }
+
+    public List<Peer> getAllPeers() {
+        return peers;
+    }
 }
