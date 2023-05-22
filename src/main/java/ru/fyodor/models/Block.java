@@ -3,8 +3,8 @@ package ru.fyodor.models;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.assertj.core.util.Hexadecimals;
-import ru.fyodor.client.Account;
 import ru.fyodor.generators.HashGenerator;
+import ru.fyodor.p2p.Peer;
 
 import java.time.Instant;
 
@@ -17,16 +17,19 @@ public class Block {
     private final byte[] signature; //applies on curr hash value
     private final Instant instant;
 
-    public Block(byte[] previousHash, byte[] data, Account account) throws Exception {
+    private final Peer peer;
+
+    public Block(byte[] previousHash, byte[] data, Peer peer) throws Exception {
         this.previousHash = previousHash;
         this.data = data;
         this.instant = Instant.now();
+        this.peer = peer;
         this.currentHash = HashGenerator.calculateHashFromArgs(
                 previousHash,
                 data,
                 instant.toString().getBytes()
         );
-        this.signature = account.sign(currentHash);
+        this.signature = peer.getAccount().sign(currentHash);
     }
 
     @Override

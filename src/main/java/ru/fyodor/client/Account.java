@@ -1,6 +1,5 @@
 package ru.fyodor.client;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import javax.crypto.BadPaddingException;

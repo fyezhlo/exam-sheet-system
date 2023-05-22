@@ -23,7 +23,7 @@ public class Peer {
      * Методы для отправки и получения сообщений
      * */
 
-    private Account account;
+    private Account account; // каждый peer привязан к единственному акку
     private String address;
     private int port;
 
