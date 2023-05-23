@@ -1,6 +1,8 @@
 package ru.fyodor.p2p;
 
-public class Message {
+import java.io.Serializable;
+
+public class Message implements Serializable {
     /**
      * Сообщение, передаваемое по сети.
      * Содержит тип сообщения и данные, которые передаются
@@ -8,4 +10,6 @@ public class Message {
 
     MESSAGE_TYPE type;
     Object data;
+
+
 }

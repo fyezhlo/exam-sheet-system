@@ -44,6 +44,14 @@ public class BlockChain {
         chain.add(newBlock);
     }
 
+    public boolean checkPeer(Peer peer) {
+        /**
+         * checks whether passing peer is valid
+         * */
+
+        return false;
+    }
+
     byte[] getLastBlockHash() {
         return lastBlock.getCurrentHash();
     }

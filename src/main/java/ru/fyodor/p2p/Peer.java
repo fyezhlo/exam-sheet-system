@@ -1,6 +1,7 @@
 package ru.fyodor.p2p;
 
 import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
@@ -26,6 +27,8 @@ public class Peer {
     private Account account; // каждый peer привязан к единственному акку
     private String address;
     private int port;
+    private Server server;
+    private Client client;
 
     public Peer(Account account, String address, int port) {
         this.account = account;
@@ -34,27 +37,10 @@ public class Peer {
     }
 
     public boolean sendMessage(Message message) {
-        EventLoopGroup group = new NioEventLoopGroup(); //?
-        try {
-            Bootstrap bootstrap = new Bootstrap()
-                    .group(group)
-                    .channel(NioSocketChannel.class)
-                    .remoteAddress(new InetSocketAddress(address, port))
-                    .handler(new ChannelInitializer<SocketChannel>() {
-                        @Override
-                        protected void initChannel(SocketChannel ch) throws Exception {
-                            ch.pipeline().addLast(new ObjectEncoder(), new ObjectDecoder(ClassResolvers.cacheDisabled(null)), new Client());
-                        }
-                    });
-            ChannelFuture future = bootstrap.connect().sync();
-            future.channel().writeAndFlush(message).sync();
-            future.channel().closeFuture().sync();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            group.shutdownGracefully();
-        }
 
-        return false;
+    }
+
+    public Message receiveMessage(ByteBuf bytes) {
+
     }
 }

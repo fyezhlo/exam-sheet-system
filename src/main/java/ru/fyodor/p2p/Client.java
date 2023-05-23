@@ -8,6 +8,11 @@ public class Client extends ChannelInboundHandlerAdapter {
      * Клиент для обработки сетевых сообщений
      * */
 
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        // need to approve if connecting peer allowed
+    }
+
     /**
      * Обрабатывает полученные сообщения и реагирует на них
      * */
