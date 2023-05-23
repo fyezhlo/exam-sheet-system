@@ -1,24 +1,21 @@
 package ru.fyodor.p2p;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
-public class Client extends ChannelInboundHandlerAdapter {
-    /**
-     * Клиент для обработки сетевых сообщений
-     * */
-
-    @Override
-    public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        // need to approve if connecting peer allowed
-    }
-
+public class ServerHandler extends ChannelInboundHandlerAdapter {
     /**
      * Обрабатывает полученные сообщения и реагирует на них
      * */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        super.channelRead(ctx, msg);
+        sendBuf(msg);
+    }
+
+    public Message sendBuf(Object msg) {
+        ByteBuf buf = (ByteBuf) msg;
+        return MsgSerializer.deserialize(buf.array());
     }
 
     /**
@@ -26,6 +23,7 @@ public class Client extends ChannelInboundHandlerAdapter {
      * */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        super.exceptionCaught(ctx, cause);
+        cause.printStackTrace();
+        ctx.close();
     }
 }
