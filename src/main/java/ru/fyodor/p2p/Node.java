@@ -23,8 +23,6 @@ public class Node {
     private EventLoopGroup workGroup;
     private Peer currPeer;
     private List<Peer> peers;
-    private ServerHandler server;
-    private ClientHandler client;
 
     public Node(Peer currPeer) {
         this.currPeer = currPeer;
@@ -35,15 +33,14 @@ public class Node {
     }
 
     public void listenConnections(int inetPort) {
-        server = new ServerHandler();
-
+        ServerHandler serverHandler = new ServerHandler(this);
         try {
             bootstrap.group(joinGroup, workGroup)
                     .channel(NioServerSocketChannel.class)
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
-
+                            socketChannel.pipeline().addLast(serverHandler);
                         }
                     });
             ChannelFuture future = bootstrap.bind(inetPort).sync();
@@ -59,10 +56,14 @@ public class Node {
 
     public boolean sendMessage(Message message) {
         // operates with bc
+
+        return false;
     }
 
     public Message receiveMessage(Message message) {
         // operates with bc
+
+        return null;
     }
 
     public boolean addPeer(Peer peer) {

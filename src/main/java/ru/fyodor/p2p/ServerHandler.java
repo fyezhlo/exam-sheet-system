@@ -5,17 +5,26 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
 public class ServerHandler extends ChannelInboundHandlerAdapter {
+    private Node node;
+
+    public ServerHandler(Node node) {
+        this.node = node;
+    }
+
     /**
      * Обрабатывает полученные сообщения и реагирует на них
      * */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        sendBuf(msg);
+        ByteBuf buf = (ByteBuf) msg;
+        receiveMessage(
+                MsgSerializer.deserialize(buf.array())
+        );
+        buf.release();
     }
 
-    public Message sendBuf(Object msg) {
-        ByteBuf buf = (ByteBuf) msg;
-        return MsgSerializer.deserialize(buf.array());
+    private void receiveMessage(Message msg) {
+        node.receiveMessage(msg);
     }
 
     /**
