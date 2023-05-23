@@ -11,5 +11,4 @@ public class Message implements Serializable {
     MESSAGE_TYPE type;
     Object data;
 
-
 }
