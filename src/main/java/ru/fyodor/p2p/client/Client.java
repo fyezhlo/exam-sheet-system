@@ -13,11 +13,12 @@ import ru.fyodor.p2p.Node;
 import ru.fyodor.p2p.message.Message;
 import ru.fyodor.p2p.message.MsgSerializer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Client {
     private Node node;
-    private SocketChannel channel;
-
-
+    private List<ClientConnection> connections = new ArrayList<>();
     public Client(Node node) {
         this.node = node;
     }
@@ -32,7 +33,9 @@ public class Client {
                         .handler(new ChannelInitializer<SocketChannel>() {
                                      @Override
                                      protected void initChannel(SocketChannel socketChannel) throws Exception {
-                                         channel = socketChannel;
+                                         connections.add(
+                                                 new ClientConnection(socketChannel)
+                                         );
                                      }
                                  }
                         );
@@ -47,10 +50,13 @@ public class Client {
         }).run();
     }
 
+    //сообщение отправляется на все подключенные к сети узлы
     public void sendMessage(Message msg) {
         ByteBuf buf = Unpooled.copiedBuffer(
                 MsgSerializer.serialize(msg)
         );
-        channel.writeAndFlush(buf);
+        for (var con : connections) {
+            con.getChannel().writeAndFlush(buf);
+        }
     }
 }
