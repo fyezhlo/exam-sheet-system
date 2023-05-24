@@ -8,7 +8,7 @@ public class Message implements Serializable {
      * Содержит тип сообщения и данные, которые передаются
      * */
 
-    MESSAGE_TYPE type;
+    MSG_TYPE type;
     Object data;
 
 }

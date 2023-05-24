@@ -20,5 +20,4 @@ public class Peer {
         this.address = address;
         this.port = port;
     }
-
 }
