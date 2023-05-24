@@ -1,8 +1,6 @@
 package ru.fyodor.p2p.client;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
@@ -11,14 +9,13 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import ru.fyodor.p2p.Node;
 import ru.fyodor.p2p.message.Message;
-import ru.fyodor.p2p.message.MsgSerializer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Client {
     private Node node;
-    private List<ClientConnection> connections = new ArrayList<>();
+    private List<ClientChannel> channels = new ArrayList<>();
     public Client(Node node) {
         this.node = node;
     }
@@ -33,8 +30,8 @@ public class Client {
                         .handler(new ChannelInitializer<SocketChannel>() {
                                      @Override
                                      protected void initChannel(SocketChannel socketChannel) throws Exception {
-                                         connections.add(
-                                                 new ClientConnection(socketChannel)
+                                         channels.add(
+                                                 new ClientChannel(socketChannel)
                                          );
                                      }
                                  }
@@ -52,11 +49,8 @@ public class Client {
 
     //сообщение отправляется на все подключенные к сети узлы
     public void sendMessage(Message msg) {
-        ByteBuf buf = Unpooled.copiedBuffer(
-                MsgSerializer.serialize(msg)
-        );
-        for (var con : connections) {
-            con.getChannel().writeAndFlush(buf);
+        for (var chan : channels) {
+            chan.send(msg);
         }
     }
 }
