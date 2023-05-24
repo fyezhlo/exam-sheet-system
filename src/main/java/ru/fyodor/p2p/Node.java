@@ -7,8 +7,12 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import ru.fyodor.services.TransactionService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.BiConsumer;
 
 public class Node {
     /**
@@ -23,15 +27,22 @@ public class Node {
     private EventLoopGroup workGroup;
     private Peer currPeer;
     private List<Peer> peers;
+    private TransactionService ts;
 
-    public Node(Peer currPeer) {
+    public Node(Peer currPeer, TransactionService ts) {
         this.currPeer = currPeer;
+        this.ts = ts;
 
         this.joinGroup = new NioEventLoopGroup(1);
         this.workGroup = new NioEventLoopGroup();
         this.bootstrap = new ServerBootstrap();
     }
 
+    /**
+     * запускает обработчик подключений к узлу
+     * прослушивает укаанный порт
+     * обрабатывает входящие сообщения
+     * */
     public void listenConnections(int inetPort) {
         ServerHandler serverHandler = new ServerHandler(this);
         try {
@@ -61,20 +72,34 @@ public class Node {
     }
 
     public Message receiveMessage(Message message) {
-        // operates with bc
-
+        handleMap.get(message.type);
         return null;
     }
 
-    public boolean addPeer(Peer peer) {
-        return peers.add(peer);
+    private BiConsumer<Message, TransactionService> addBlock = (Message msg, TransactionService ts) -> {
+
+    };
+    private BiConsumer<Message, TransactionService> getLastBlock = (Message msg, TransactionService ts) -> {
+
+    };
+    private BiConsumer<Message, TransactionService> joinChain = (Message msg, TransactionService ts) -> {
+
+    };
+    private Map<MESSAGE_TYPE, BiConsumer<Message, TransactionService>> handleMap = new HashMap<>();
+    {
+        handleMap.put(MESSAGE_TYPE.ADD_NEW_BLOCK, addBlock);
+        handleMap.put(MESSAGE_TYPE.GET_LAST_BLOCK, getLastBlock);
     }
 
-    public boolean removePeer(Peer peer) {
+    private void addPeer(Peer peer) {
+        peers.add(peer);
+    }
+
+    private boolean removePeer(Peer peer) {
         return peers.remove(peer);
     }
 
-    public List<Peer> getAllPeers() {
+    private List<Peer> getAllPeers() {
         return peers;
     }
 }
