@@ -1,8 +1,11 @@
-package ru.fyodor.p2p;
+package ru.fyodor.p2p.server;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import ru.fyodor.p2p.message.Message;
+import ru.fyodor.p2p.message.MsgSerializer;
+import ru.fyodor.p2p.Node;
 
 public class ServerHandler extends ChannelInboundHandlerAdapter {
     private Node node;

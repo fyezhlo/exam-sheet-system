@@ -1,5 +1,9 @@
 package ru.fyodor.p2p;
 
+import ru.fyodor.p2p.message.MSG_TYPE;
+import ru.fyodor.p2p.message.Message;
+import ru.fyodor.p2p.server.Server;
+import ru.fyodor.p2p.server.ServerHandler;
 import ru.fyodor.services.TransactionService;
 
 import java.util.HashMap;
@@ -34,7 +38,7 @@ public class Node {
      * обрабатывает входящие сообщения
      * */
     public void listenConnections(int inetPort) {
-        this.server.run(
+        this.server.runServer(
                 new ServerHandler(this),
                 inetPort
         );

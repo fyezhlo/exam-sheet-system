@@ -1,7 +1,8 @@
-package ru.fyodor.p2p;
+package ru.fyodor.p2p.message;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import ru.fyodor.p2p.message.Message;
 
 import java.io.IOException;
 
