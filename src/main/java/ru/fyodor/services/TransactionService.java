@@ -1,9 +1,9 @@
 package ru.fyodor.services;
 
-import ru.fyodor.client.Account;
 import ru.fyodor.generators.HashGenerator;
 import ru.fyodor.models.Token;
 import ru.fyodor.models.Transaction;
+import ru.fyodor.p2p.Peer;
 
 
 public class TransactionService {
@@ -13,10 +13,10 @@ public class TransactionService {
         this.blockChain = blockChain;
     }
 
-    public void generateTransaction(Token token, Account account) throws Exception {
+    public void generateTransaction(Token token, Peer peer) throws Exception {
         Transaction transaction = new Transaction(
                 token,
-                account,
+                peer,
                 this.blockChain.getLastBlockHash(),
                 HashGenerator.getRandomBytes()
         );

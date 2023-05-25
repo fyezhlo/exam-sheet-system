@@ -1,6 +1,5 @@
 package ru.fyodor.client;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import javax.crypto.BadPaddingException;
@@ -17,8 +16,7 @@ public class Account {
     private byte[] publicKey;
     //private byte[] address;
 
-
-    public Account(KeyPair keyPair) {
+    Account(KeyPair keyPair) {
         this.keyPair = keyPair;
         this.publicKey = keyPair.getPublic().getEncoded();
     }

@@ -1,10 +1,9 @@
 package ru.fyodor.services;
 
-import ru.fyodor.client.Account;
-import ru.fyodor.client.AccountService;
 import ru.fyodor.generators.HashGenerator;
 import ru.fyodor.models.Block;
 import ru.fyodor.models.Transaction;
+import ru.fyodor.p2p.Peer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,18 +14,20 @@ public class BlockChain {
     private Block lastBlock;
 
     private List<Block> chain = new ArrayList<>();
+    private List<Peer> peers = new ArrayList<>();
 
     private BlockChain(Block genesisBlock) {
         this.genesisBlock = genesisBlock;
         this.lastBlock = genesisBlock;
         chain.add(genesisBlock);
+        peers.add(genesisBlock.getPeer());
     }
 
-    public static BlockChain generateBlockChain(Account account) throws Exception {
+    public static BlockChain generateBlockChain(Peer peer) throws Exception {
         Block genesisBlock = GenesisBlock.getBlock(
                 // можно заменить на чтение из конфиг файла
                 HashGenerator.getRandomBytes(),
-                account
+                peer
         );
 
         return new BlockChain(genesisBlock);
@@ -36,11 +37,19 @@ public class BlockChain {
         Block newBlock = new Block(
                 transaction.getPrevBlockHash(),
                 transaction.getTransactionHash(),
-                transaction.getAccount()
+                transaction.getPeer()
                 );
 
         this.lastBlock = newBlock;
         chain.add(newBlock);
+    }
+
+    public boolean checkPeer(Peer peer) {
+        /**
+         * checks whether passing peer is valid
+         * */
+
+        return false;
     }
 
     byte[] getLastBlockHash() {
