@@ -1,5 +1,6 @@
 package ru.fyodor.p2p;
 
+import ru.fyodor.p2p.client.Client;
 import ru.fyodor.p2p.message.MSG_TYPE;
 import ru.fyodor.p2p.message.Message;
 import ru.fyodor.p2p.server.Server;
@@ -25,11 +26,14 @@ public class Node {
     private TransactionService ts;
     private final Server server;
 
+    private final Client client;
+
     public Node(Peer currPeer, TransactionService ts) {
         this.currPeer = currPeer;
         this.ts = ts;
 
         this.server = new Server(this);
+        this.client = new Client(this);
     }
 
     /**
