@@ -7,7 +7,9 @@ Technologies stack:
 - spring boot
 - maven
 - log4j2
+- netty
 
 How it works:
 
-![Untitled Diagram drawio(4)](https://user-images.githubusercontent.com/99747059/223498772-cf1a6b1e-5f90-444e-8cd7-2ca2ea23412b.png)
+![Untitled Diagram drawio(5)](https://github.com/fyezhlo/exam-sheet-system/assets/99747059/a3b05da3-1383-4608-ba5f-c51a72af14e7)
+
