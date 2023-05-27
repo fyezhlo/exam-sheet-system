@@ -48,10 +48,17 @@ public class Node {
         );
     }
 
-    public boolean sendMessage(Message message) {
-        // operates with bc
+    public void connectToNodes() {
+        for (Peer peer : peers) {
+            this.client.connectToServer(
+                    peer.getHost(),
+                    peer.getPort()
+            );
+        }
+    }
 
-        return false;
+    public void sendMessage(Message message) {
+        this.client.sendMessage(message);
     }
 
     public void receiveMessage(Message msg) {
@@ -78,6 +85,7 @@ public class Node {
     {
         handleMap.put(MSG_TYPE.ADD_NEW_BLOCK, addBlock);
         handleMap.put(MSG_TYPE.GET_LAST_BLOCK, getLastBlock);
+        handleMap.put(MSG_TYPE.JOIN_CHAIN, joinChain);
     }
 
     private void addPeer(Peer peer) {

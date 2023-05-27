@@ -13,6 +13,8 @@ import ru.fyodor.generators.MerkleTree.MerkleTree;
 import ru.fyodor.models.Block;
 import ru.fyodor.models.Collection;
 import ru.fyodor.models.Token;
+import ru.fyodor.p2p.Node;
+import ru.fyodor.p2p.Peer;
 import ru.fyodor.services.BlockChain;
 import ru.fyodor.services.TransactionService;
 
@@ -34,7 +36,7 @@ public class AppTest
 
     @Test
     public void logTest() {
-        Logger logger = LogManager.getLogger(App.class.getName());
+        Logger logger = LogManager.getLogger(AppServ.class.getName());
         logger.error("testing ERROR message log");
     }
 
@@ -78,8 +80,20 @@ public class AppTest
         AccountService as = new AccountServiceImpl();
         Account account = as.createAccount("seed".getBytes());
 
-        BlockChain blockChain = BlockChain.generateBlockChain(account);
+        Peer peer = new Peer(
+                account,
+                "127.0.0.1",
+                8081
+        );
+
+        BlockChain blockChain = BlockChain.generateBlockChain(peer);
         TransactionService ts = new TransactionService(blockChain);
+
+        Node node = new Node(peer, ts);
+        node.listenConnections(
+                peer.getPort()
+        );
+        node.connectToNodes();
 
         Token token = new Token(
                 getRandomBytes(),
@@ -89,8 +103,8 @@ public class AppTest
                 )
         );
 
-        ts.generateTransaction(token, account);
-        ts.generateTransaction(token, account);
+        ts.generateTransaction(token, peer);
+        ts.generateTransaction(token, peer);
 
         System.out.print("Genesis block: ");
         for (Block block : blockChain.getChain()) {

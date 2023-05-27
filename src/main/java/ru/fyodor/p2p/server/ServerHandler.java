@@ -14,6 +14,11 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         this.node = node;
     }
 
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("client connected");
+    }
+
     /**
      * Обрабатывает полученные сообщения и реагирует на них
      * */

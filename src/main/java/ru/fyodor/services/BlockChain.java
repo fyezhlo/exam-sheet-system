@@ -5,7 +5,7 @@ import ru.fyodor.models.Block;
 import ru.fyodor.models.Transaction;
 import ru.fyodor.p2p.Peer;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class BlockChain {
@@ -13,14 +13,18 @@ public class BlockChain {
     private final Block genesisBlock;
     private Block lastBlock;
 
-    private List<Block> chain = new ArrayList<>();
-    private List<Peer> peers = new ArrayList<>();
+    private LinkedList<Block> chain = new LinkedList<>();
+    private List<Peer> peers = new LinkedList<>();
 
     private BlockChain(Block genesisBlock) {
         this.genesisBlock = genesisBlock;
         this.lastBlock = genesisBlock;
         chain.add(genesisBlock);
         peers.add(genesisBlock.getPeer());
+    }
+
+    private BlockChain(List<Block> blocks) {
+        this.genesisBlock = blocks.get(0);
     }
 
     public static BlockChain generateBlockChain(Peer peer) throws Exception {
@@ -31,6 +35,12 @@ public class BlockChain {
         );
 
         return new BlockChain(genesisBlock);
+    }
+
+    public static BlockChain joinChain(/*??*/) {
+
+
+        return  null;
     }
 
     void addBlock(Transaction transaction) throws Exception {

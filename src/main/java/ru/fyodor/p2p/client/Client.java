@@ -8,6 +8,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import ru.fyodor.p2p.Node;
+import ru.fyodor.p2p.message.MSG_TYPE;
 import ru.fyodor.p2p.message.Message;
 
 import java.util.ArrayList;
@@ -21,6 +22,10 @@ public class Client {
     }
 
     public void connectToServer(String inetHost, int inetPort) {
+        Message connMsg = new Message(
+                MSG_TYPE.JOIN_CHAIN,
+                "connecting".getBytes()
+        );
         new Thread(() -> {
             EventLoopGroup group = new NioEventLoopGroup();
             try {
@@ -30,8 +35,10 @@ public class Client {
                         .handler(new ChannelInitializer<SocketChannel>() {
                                      @Override
                                      protected void initChannel(SocketChannel socketChannel) throws Exception {
+                                         ClientChannel chan = new ClientChannel(socketChannel);
+                                         chan.send(connMsg);
                                          channels.add(
-                                                 new ClientChannel(socketChannel)
+                                                 chan
                                          );
                                      }
                                  }

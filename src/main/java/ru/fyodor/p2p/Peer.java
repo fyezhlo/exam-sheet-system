@@ -12,12 +12,12 @@ public class Peer {
      * */
 
     private Account account; // каждый peer привязан к единственному акку
-    private String address;
+    private String host;
     private int port;
 
     public Peer(Account account, String address, int port) {
         this.account = account;
-        this.address = address;
+        this.host = address;
         this.port = port;
     }
 }
