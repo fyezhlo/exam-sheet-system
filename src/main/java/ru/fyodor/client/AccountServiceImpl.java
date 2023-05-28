@@ -1,11 +1,16 @@
 package ru.fyodor.client;
 
+import org.springframework.stereotype.Service;
+
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Optional;
 
+@Service
 public class AccountServiceImpl extends AccountService {
+
+
     @Override
     public Account createAccount(byte[] seed) {
         KeyPair kp = null;
@@ -22,7 +27,7 @@ public class AccountServiceImpl extends AccountService {
 
     @Override
     public Optional<byte[]> pushData(byte[] data) {
-        return Optional.empty();
+        return null;
     }
 
     @Override
