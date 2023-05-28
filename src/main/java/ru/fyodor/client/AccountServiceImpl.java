@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
-import java.util.Optional;
 
 @Service
 public class AccountServiceImpl extends AccountService {
@@ -26,12 +25,12 @@ public class AccountServiceImpl extends AccountService {
     }
 
     @Override
-    public Optional<byte[]> pushData(byte[] data) {
-        return null;
+    public byte[] pushData(byte[] data) {
+        return new byte[]{0};
     }
 
     @Override
-    public Optional<byte[]> getData(byte[] id) {
-        return Optional.empty();
+    public byte[] getData(byte[] id) {
+        return new byte[]{0};
     }
 }

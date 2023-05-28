@@ -4,10 +4,7 @@ import org.assertj.core.util.Hexadecimals;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.fyodor.client.Account;
 import ru.fyodor.client.AccountService;
 
@@ -25,9 +22,8 @@ public class ChainRestController {
     public ResponseEntity<String> createAccount(
             @RequestBody String seed
     ) {
-
         Account account = accountService.createAccount(
-                seed.concat(Instant.now().toString()).getBytes(StandardCharsets.UTF_8)
+                seed.concat(Instant.now().toString()).getBytes()
         );
 
         return ResponseEntity
@@ -39,12 +35,29 @@ public class ChainRestController {
     public ResponseEntity<String> pushData(
             @RequestBody String token
     ) {
-        accountService.pushData(token.getBytes(StandardCharsets.UTF_8));
-
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(
-                        "vse ok"
+                        Hexadecimals.toHexString(
+                                accountService.pushData(
+                                        token.getBytes(StandardCharsets.UTF_8)
+                                )
+                        )
+                );
+    }
+
+    @GetMapping("/get-data")
+    public ResponseEntity<String> getData(
+            @RequestBody String tokenId
+    ) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(
+                        Hexadecimals.toHexString(
+                                accountService.getData(
+                                        tokenId.getBytes(StandardCharsets.UTF_8)
+                                )
+                        )
                 );
     }
 

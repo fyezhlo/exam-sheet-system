@@ -7,7 +7,6 @@ import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Arrays;
-import java.util.Optional;
 
 @Getter
 public abstract class AccountService {
@@ -25,7 +24,7 @@ public abstract class AccountService {
      * Возвращает id документа в системе в случае успешного добавления
      * В противном случае возвращает null
      * */
-    public abstract Optional<byte[]> pushData(byte[] data);
+    public abstract byte[] pushData(byte[] data);
 
     /**
      * Метод для получения валидного жсон-объекта
@@ -33,7 +32,7 @@ public abstract class AccountService {
      * Возвращает документ в виде байт-массива в случае когда id существует
      * В противном случае возвращает null
      */
-    public abstract Optional<byte[]> getData(byte[] id);
+    public abstract byte[] getData(byte[] id);
 
     /**
      * Генерация пар ключей
