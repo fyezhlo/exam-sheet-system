@@ -16,7 +16,7 @@ public abstract class AccountService {
      * На вход конструктора подается сид фраза в виде байт-массива
      * Возвращает ссылку на созданный инстанс для конкретного пользователя
      * */
-    public abstract Account createAccount(byte[] seed);
+    public abstract Account createAccount(byte[] seed, String address, int port);
 
     /**
      * Метод для загрузки нового документа в систему
@@ -37,7 +37,7 @@ public abstract class AccountService {
     /**
      * Генерация пар ключей
      * */
-    protected KeyPair generateKeyPair(byte[] seed) throws NoSuchAlgorithmException {
+    protected final KeyPair generateKeyPair(byte[] seed) throws NoSuchAlgorithmException {
         KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
         SecureRandom random = SecureRandom.getInstanceStrong();
         random.setSeed(seed);

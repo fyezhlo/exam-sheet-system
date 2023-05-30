@@ -13,7 +13,7 @@ public class TransactionService {
         this.blockChain = blockChain;
     }
 
-    public void generateTransaction(Token token, Peer peer) throws Exception {
+    public void generateTransaction(Token token, Peer peer) {
         Transaction transaction = new Transaction(
                 token,
                 peer,

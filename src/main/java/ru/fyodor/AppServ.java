@@ -24,15 +24,13 @@ public class AppServ {
 
     public static void foo() throws Exception {
         AccountService as = new AccountServiceImpl();
-        Account account = as.createAccount("seed".getBytes());
-
-        Peer peer = new Peer(
-                account,
+        Account account = as.createAccount(
+                "seed".getBytes(),
                 "127.0.0.1",
                 8081
         );
 
-        BlockChain blockChain = BlockChain.generateBlockChain(peer);
+        BlockChain blockChain = BlockChain.generateBlockChain();
         TransactionService ts = new TransactionService(blockChain);
 
         Node node = new Node(peer, ts);

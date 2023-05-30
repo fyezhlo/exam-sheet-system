@@ -20,10 +20,14 @@ public class ChainRestController {
 
     @PostMapping("/create-account")
     public ResponseEntity<String> createAccount(
-            @RequestBody String seed
+            @RequestBody String seed,
+            @RequestBody String address,
+            @RequestBody int port
     ) {
         Account account = accountService.createAccount(
-                seed.concat(Instant.now().toString()).getBytes()
+                seed.concat(Instant.now().toString()).getBytes(),
+                address,
+                port
         );
 
         return ResponseEntity

@@ -7,6 +7,7 @@ import ru.fyodor.p2p.server.Server;
 import ru.fyodor.p2p.server.ServerHandler;
 import ru.fyodor.services.TransactionService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,7 @@ public class Node {
         this.currPeer = currPeer;
         this.ts = ts;
 
+        this.peers = new ArrayList<>();
         this.server = new Server(this);
         this.client = new Client(this);
     }
@@ -49,7 +51,7 @@ public class Node {
     }
 
     public void connectToNodes() {
-        for (Peer peer : peers) {
+        for (Peer peer : this.peers) {
             this.client.connectToServer(
                     peer.getHost(),
                     peer.getPort()
@@ -79,7 +81,7 @@ public class Node {
 
     };
     private BiConsumer<Message, TransactionService> joinChain = (Message msg, TransactionService ts) -> {
-
+        //addPeer();
     };
     private Map<MSG_TYPE, BiConsumer<Message, TransactionService>> handleMap = new HashMap<>();
     {

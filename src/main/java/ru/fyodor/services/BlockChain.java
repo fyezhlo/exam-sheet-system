@@ -13,7 +13,7 @@ public class BlockChain {
     private final Block genesisBlock;
     private Block lastBlock;
 
-    private LinkedList<Block> chain = new LinkedList<>();
+    private List<Block> chain = new LinkedList<>();
     private List<Peer> peers = new LinkedList<>();
 
     private BlockChain(Block genesisBlock) {
@@ -21,10 +21,6 @@ public class BlockChain {
         this.lastBlock = genesisBlock;
         chain.add(genesisBlock);
         peers.add(genesisBlock.getPeer());
-    }
-
-    private BlockChain(List<Block> blocks) {
-        this.genesisBlock = blocks.get(0);
     }
 
     public static BlockChain generateBlockChain(Peer peer) throws Exception {

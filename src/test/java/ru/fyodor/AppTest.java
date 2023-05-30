@@ -13,7 +13,6 @@ import ru.fyodor.generators.MerkleTree.MerkleTree;
 import ru.fyodor.models.Block;
 import ru.fyodor.models.Collection;
 import ru.fyodor.models.Token;
-import ru.fyodor.p2p.Node;
 import ru.fyodor.p2p.Peer;
 import ru.fyodor.services.BlockChain;
 import ru.fyodor.services.TransactionService;
@@ -89,11 +88,11 @@ public class AppTest
         BlockChain blockChain = BlockChain.generateBlockChain(peer);
         TransactionService ts = new TransactionService(blockChain);
 
-        Node node = new Node(peer, ts);
+       /* Node node = new Node(peer, ts);
         node.listenConnections(
                 peer.getPort()
         );
-        node.connectToNodes();
+        node.connectToNodes();*/
 
         Token token = new Token(
                 getRandomBytes(),

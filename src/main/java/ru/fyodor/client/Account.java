@@ -22,6 +22,16 @@ public class Account {
     }
 
     /**
+     * Вызывается при добавлении узла в список всех узлов
+     * Использование метода подписи не предусмотрено
+     * Передача приватного ключа по сети не представляется безопасным
+     * */
+    Account(byte[] publicKey) {
+        this.publicKey = publicKey;
+        this.keyPair = null;
+    }
+
+    /**
      * Метод, генерирующий подпись на основе полей объекта Account
      * */
     public byte[] sign(byte[] data) throws NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, NoSuchPaddingException {
