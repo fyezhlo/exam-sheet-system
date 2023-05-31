@@ -20,6 +20,14 @@ public class TransactionService {
                 this.blockChain.getLastBlockHash(),
                 HashGenerator.getRandomBytes()
         );
-        blockChain.addBlock(transaction);
+        try {
+            blockChain.addBlock(transaction);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public byte[] getLastBlock() {
+        return blockChain.getLastBlockHash();
     }
 }

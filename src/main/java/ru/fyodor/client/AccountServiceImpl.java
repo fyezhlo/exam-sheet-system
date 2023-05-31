@@ -34,12 +34,13 @@ public class AccountServiceImpl extends AccountService {
         Arrays.fill(seed, (byte) 0);
 
         Account account = new Account(kp);
-        collection = new Collection(account, HashGenerator.getRandomBytes());
         peer = new Peer(
                 account,
                 address,
                 port
         );
+        collection = new Collection(peer, HashGenerator.getRandomBytes());
+
 
         try {
             joinChain(BlockChain.generateBlockChain(peer));

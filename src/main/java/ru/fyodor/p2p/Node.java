@@ -1,16 +1,17 @@
 package ru.fyodor.p2p;
 
+import ru.fyodor.generators.HashGenerator;
+import ru.fyodor.models.Collection;
+import ru.fyodor.models.Token;
 import ru.fyodor.p2p.client.Client;
-import ru.fyodor.p2p.message.MSG_TYPE;
 import ru.fyodor.p2p.message.Message;
+import ru.fyodor.p2p.message.MsgSerializer;
 import ru.fyodor.p2p.server.Server;
 import ru.fyodor.p2p.server.ServerHandler;
 import ru.fyodor.services.TransactionService;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.BiConsumer;
 
 public class Node {
@@ -64,31 +65,31 @@ public class Node {
     }
 
     public void receiveMessage(Message msg) {
-        handle(
-                handleMap.get(msg.type),
-                msg
-        );
+        switch (msg.type) {
+            case ADD_NEW_BLOCK: addBlock(msg, this.ts);
+            case GET_LAST_BLOCK: getLastBlock();
+            case JOIN_CHAIN: addPeer((Peer) msg.data);
+        }
     }
 
     private void handle(BiConsumer<Message, TransactionService> consumer, Message msg) {
         consumer.accept(msg, this.ts);
     }
 
-    private BiConsumer<Message, TransactionService> addBlock = (Message msg, TransactionService ts) -> {
+    private void addBlock(Message msg, TransactionService ts) {
+        Token token = new Token(
+                MsgSerializer.serialize(msg),
+                new Collection(currPeer, HashGenerator.getRandomBytes())
+        );
 
+        ts.generateTransaction(
+                token,
+                currPeer
+        );
     };
-    private BiConsumer<Message, TransactionService> getLastBlock = (Message msg, TransactionService ts) -> {
-
+    private byte[] getLastBlock () {
+        return ts.getLastBlock();
     };
-    private BiConsumer<Message, TransactionService> joinChain = (Message msg, TransactionService ts) -> {
-        //addPeer();
-    };
-    private Map<MSG_TYPE, BiConsumer<Message, TransactionService>> handleMap = new HashMap<>();
-    {
-        handleMap.put(MSG_TYPE.ADD_NEW_BLOCK, addBlock);
-        handleMap.put(MSG_TYPE.GET_LAST_BLOCK, getLastBlock);
-        handleMap.put(MSG_TYPE.JOIN_CHAIN, joinChain);
-    }
 
     private void addPeer(Peer peer) {
         peers.add(peer);

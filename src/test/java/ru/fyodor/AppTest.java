@@ -1,19 +1,15 @@
 package ru.fyodor;
 
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.assertj.core.util.Hexadecimals;
 import org.junit.jupiter.api.Test;
 import ru.fyodor.client.Account;
-import ru.fyodor.client.AccountService;
 import ru.fyodor.client.AccountServiceImpl;
 import ru.fyodor.generators.HashGenerator;
 import ru.fyodor.generators.MerkleTree.MerkleTree;
 import ru.fyodor.models.Block;
 import ru.fyodor.models.Collection;
 import ru.fyodor.models.Token;
-import ru.fyodor.p2p.Peer;
 import ru.fyodor.services.BlockChain;
 import ru.fyodor.services.TransactionService;
 
@@ -31,12 +27,6 @@ public class AppTest
     public void shouldAnswerWithTrue()
     {
         assertTrue( true );
-    }
-
-    @Test
-    public void logTest() {
-        Logger logger = LogManager.getLogger(AppServ.class.getName());
-        logger.error("testing ERROR message log");
     }
 
     @Test
@@ -76,16 +66,14 @@ public class AppTest
 
     @Test
     public void transactionTest() throws Exception {
-        AccountService as = new AccountServiceImpl();
-        Account account = as.createAccount("seed".getBytes());
-
-        Peer peer = new Peer(
-                account,
-                "127.0.0.1",
-                8081
+        AccountServiceImpl as = new AccountServiceImpl();
+        Account account = as.createAccount(
+                "seed".getBytes(),
+                "localhost",
+                8082
         );
 
-        BlockChain blockChain = BlockChain.generateBlockChain(peer);
+        BlockChain blockChain = BlockChain.generateBlockChain(as.getPeer());
         TransactionService ts = new TransactionService(blockChain);
 
        /* Node node = new Node(peer, ts);
@@ -97,13 +85,13 @@ public class AppTest
         Token token = new Token(
                 getRandomBytes(),
                 new Collection(
-                        account,
+                        as.getPeer(),
                         getRandomBytes()
                 )
         );
 
-        ts.generateTransaction(token, peer);
-        ts.generateTransaction(token, peer);
+        ts.generateTransaction(token, as.getPeer());
+        ts.generateTransaction(token, as.getPeer());
 
         System.out.print("Genesis block: ");
         for (Block block : blockChain.getChain()) {
